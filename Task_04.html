@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>To-Do List</title>
+
+  <style>
+    body {
+      background-color: #222;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .container {
+      background-color: #333;
+      padding: 20px;
+      border-radius: 8px;
+      width: 350px;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    input {
+      width: 90%;
+      padding: 10px;
+      margin: 5px 0;
+      border: none;
+      border-radius: 4px;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 10px;
+    }
+
+    button {
+      padding: 10px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    #addTaskBtn {
+      background-color: #28a745;
+      color: #fff;
+    }
+
+    #finishBtn {
+      background-color: orange;
+      color: #fff;
+    }
+
+    #downloadBtn {
+      background-color: #17a2b8;
+      color: #fff;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 20px;
+    }
+
+    li {
+      background: #444;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 4px;
+    }
+
+    .edit-btn, .delete-btn {
+      margin-left: 10px;
+      padding: 4px 8px;
+      border-radius: 3px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .edit-btn {
+      background-color: #ffc107;
+      color: black;
+    }
+
+    .delete-btn {
+      background-color: red;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>To-Do List</h1>
+    <input type="text" id="taskInput" placeholder="Enter task..." />
+    <input type="date" id="taskDateTime" />
+    <div class="button-container">
+      <button id="addTaskBtn">Add Task</button>
+      <button id="finishBtn">Finish Adding Tasks</button>
+      <button id="downloadBtn">Download Tasks</button>
+    </div>
+    <ul id="taskList"></ul>
+  </div>
+
+  <script>
+    let tasks = [];
+
+    document.getElementById("addTaskBtn").addEventListener("click", addTask);
+    document.getElementById("finishBtn").addEventListener("click", finishAdding);
+    document.getElementById("downloadBtn").addEventListener("click", downloadTasks);
+
+    function addTask() {
+      const taskInput = document.getElementById("taskInput");
+      const taskDateTime = document.getElementById("taskDateTime");
+
+      if (taskInput.value.trim() === "") {
+        alert("Please enter a task!");
+        return;
+      }
+
+      // Format date as DD-MM-YYYY
+      let dueDate = taskDateTime.value;
+      if (dueDate) {
+        const parts = dueDate.split("-");
+        dueDate = `${parts[2]}-${parts[1]}-${parts[0]}`;
+      } else {
+        dueDate = "No date";
+      }
+
+      const task = {
+        text: taskInput.value,
+        dueDate: dueDate
+      };
+
+      tasks.push(task);
+      renderTask(task);
+
+      taskInput.value = "";
+      taskDateTime.value = "";
+    }
+
+    function renderTask(task) {
+      const li = document.createElement("li");
+      li.innerHTML = `<span>${task.text} <small>Due: ${task.dueDate}</small></span>`;
+
+      const editBtn = document.createElement("button");
+      editBtn.textContent = "Edit";
+      editBtn.className = "edit-btn";
+      editBtn.onclick = function () {
+        const newText = prompt("Edit your task:", task.text);
+        const newDate = prompt("Edit due date (DD-MM-YYYY):", task.dueDate);
+        if (newText !== null && newText.trim() !== "") {
+          task.text = newText;
+        }
+        if (newDate !== null && newDate.trim() !== "") {
+          task.dueDate = newDate;
+        }
+        li.querySelector("span").innerHTML = `${task.text} <small>Due: ${task.dueDate}</small>`;
+      };
+
+      const deleteBtn = document.createElement("button");
+      deleteBtn.textContent = "Delete";
+      deleteBtn.className = "delete-btn";
+      deleteBtn.onclick = function () {
+        document.getElementById("taskList").removeChild(li);
+        tasks = tasks.filter(t => t !== task);
+      };
+
+      li.appendChild(editBtn);
+      li.appendChild(deleteBtn);
+      document.getElementById("taskList").appendChild(li);
+    }
+
+    function finishAdding() {
+      document.getElementById("addTaskBtn").disabled = true;
+      document.getElementById("taskInput").disabled = true;
+      document.getElementById("taskDateTime").disabled = true;
+    }
+
+    function downloadTasks() {
+      if (tasks.length === 0) {
+        alert("No tasks to download!");
+        return;
+      }
+
+      const data = tasks.map(t => `${t.text} - Due: ${t.dueDate}`).join("\n");
+      const blob = new Blob([data], { type: "text/plain" });
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "tasks.txt";
+      link.click();
+    }
+  </script>
+</body>
+</html>

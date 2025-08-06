@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculator</title>
+
+  <style>
+    body {
+      font-family: Arial;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f5f5f5;
+    }
+
+    .calculator {
+      border: 1px solid #888;
+      padding: 10px;
+      background: white;
+      border-radius: 5px;
+    }
+
+    #display {
+      width: 100%;
+      margin-bottom: 10px;
+      font-size: 1.5em;
+      text-align: right;
+    }
+
+    .buttons button {
+      width: 50px;
+      height: 50px;
+      margin: 2px;
+      font-size: 1.2em;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="calculator">
+    <input type="text" id="display" readonly />
+    <div class="buttons">
+      <button>7</button>
+      <button>8</button>
+      <button>9</button>
+      <button>/</button>
+      <button>4</button>
+      <button>5</button>
+      <button>6</button>
+      <button>*</button>
+      <button>1</button>
+      <button>2</button>
+      <button>3</button>
+      <button>-</button>
+      <button>0</button>
+      <button>.</button>
+      <button>=</button>
+      <button>+</button>
+      <button>C</button>
+    </div>
+  </div>
+
+  <script>
+    const display = document.getElementById('display');
+    const buttons = document.querySelectorAll('.buttons button');
+
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const val = btn.textContent;
+
+        if (val === 'C') {
+          display.value = '';
+        } else if (val === '=') {
+          try {
+            display.value = eval(display.value);
+          } catch {
+            display.value = 'Error';
+          }
+        } else {
+          display.value += val;
+        }
+      });
+    });
+
+    document.addEventListener('keydown', e => {
+      if ((e.key >= '0' && e.key <= '9') || '+-*/.'.includes(e.key)) {
+        display.value += e.key;
+      } else if (e.key === 'Enter') {
+        try {
+          display.value = eval(display.value);
+        } catch {
+          display.value = 'Error';
+        }
+      } else if (e.key === 'Backspace') {
+        display.value = display.value.slice(0, -1);
+      } else if (e.key === 'Escape') {
+        display.value = '';
+      }
+    });
+  </script>
+</body>
+</html>
