@@ -1,6 +1,6 @@
 # SCT_WD_DhanashreeH
 SkillCraft Technology Projects:
-TASK 1 : Responsive landing page 
+◼️TASK 1 : Responsive landing page 
 Goals:
 Create a clean and responsive webpage layout.
 Add a navigation bar that:
@@ -16,7 +16,7 @@ Menu items change style when you move the mouse over them.
 Main section shows a welcome message with a nice background.
 _____________________________________________________________________________________________________________________________________________________________________________________________________________________
 
-TASK 2 : Calculator Web Application
+◼️TASK 2 : Calculator Web Application
 Goal:
 Design a basic calculator using HTML, CSS, and JavaScript.
 Allow users to perform simple calculations:
@@ -33,7 +33,7 @@ JavaScript handles input and displays the result instantly.
 Clear button (C) resets the screen.
 _____________________________________________________________________________________________________________________________________________________________________________________________________________________
 
-TASK 3 : Quiz Game Application
+◼️TASK 3 : Quiz Game Application
 Goal:
 To build a fun and interactive quiz game that challenges users with timed questions and provides instant feedback and a final score.
 
@@ -46,7 +46,7 @@ Dynamic question rendering.
 Replay option to retake the quiz.
 _____________________________________________________________________________________________________________________________________________________________________________________________________________________
 
-TASK 4 : TO DO Web Application 
+◼️TASK 4 : TO DO Web Application 
 Goals:
 Build a simple and interactive web app to manage daily tasks.
 Allow users to add, edit, delete tasks with due dates.
@@ -60,7 +60,7 @@ Clean dark-theme UI using HTML, CSS, and JavaScript.
 Fully browser-based – no login or backend needed.
 Easy to use for students or personal productivity.
 _____________________________________________________________________________________________________________________________________________________________________________________________________________________
-Outcome :
+◼️Outcome :
 By completing these four mini projects, I gained hands-on experience with HTML, CSS, and JavaScript, and understood how to apply these skills to build interactive and responsive websites.These projects helped build a strong foundation in frontend web development, and gave me confidence to create more advanced websites in the future.
 
  
